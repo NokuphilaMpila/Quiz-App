@@ -17,7 +17,6 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .head h1 {
@@ -43,26 +42,35 @@ header {
     padding: 18px;
     width: 280px;
     text-align: center;
-    cursor:pointer;
+    cursor: pointer;
     transition: transition 0.3s;
-
 }
 .quiz-app {
-    margin-top:12px;
-    display:none;
+    margin-top: 12px;
+    display: none;
 }
 
-.btn {
-    display:block;
-    width:100%;
-    padding:8px;
+.end-btn {
+    display: none;
+    width: 100%;
+    padding: 8px;
     margin: 6px;
     color: #000000;
     border-radius: 6px;
-    cursor:pointer;
+    cursor: pointer;
+    background-color: #ff6961;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 6px;
+    color: #000000;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .btn:hover {
     background-color: #ffc0cb;
 }
-

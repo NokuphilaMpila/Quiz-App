@@ -4,8 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Quiz-App</title>
-        <link rel="stylesheet" href="styles.css" />
-
+        <link rel="stylesheet" href="./styles.css" />
     </head>
 
     <body>
@@ -19,84 +18,114 @@
             <section class="section about">
                 <h2 class="section-title">Our Quizzes</h2>
                 <p>
-                    We offer a wide range of quizzes about topics such as Science, Math and Movies. Try one of our quizzes and learn more.
+                    We offer a wide range of quizzes about topics such as
+                    Science, Math and Movies. Try one of our quizzes and learn
+                    more.
                 </p>
             </section>
             <section id="Quiz" class="Quiz type">
                 <h2 class="section-title">Quizzes</h2>
 
                 <div class="cards-container">
-                        <article class="quiz-card" id="Science-card">
-                            <img src="Images/science pic.jpg" alt="Science" />
-                            <h3>Science</h3> 
-                            <div class="quiz-app">
-            <h1>Science Quiz</h1>
-            <div class=quiz>
-                <h2 id="question">Place Question here</h2>
-                <div id=answer-buttons>
-                    <button class="btn">Answer 1</button>
-                    <button class="btn">Answer 2</button>
-                    <button class="btn">Answer 3</button>
-                    <button class="btn">Answer 4</button>
-                    <button id="next-btn" class="btn">Next</button>
+                    <article class="quiz-card" id="Science-card">
+                        <img src="./assets/science.jpg" alt="Science" />
+                        <h3>Science</h3>
+                        <button class="start-btn">Start Quiz</button>
+                        <button class="end-btn">End Quiz</button>
+
+                        <div class="quiz-app">
+                            <div>
+                                <h1>Science Quiz</h1>
+                                <h2 class="score">Score: 0/5</h2>
+                            </div>
+                            <div class="quiz">
+                                <h2 class="question">Place Question here</h2>
+                                <div>
+                                    <button class="answer-button">
+                                        Answer 1
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 2
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 3
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 4
+                                    </button>
+                                </div>
+                                <button class="next-btn btn">Next</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="quiz-card" id="Mathematics-card">
+                        <img src="./assets/math.jpg" alt="Mathematics" />
+                        <h3>Mathematics</h3>
+                        <button class="start-btn">Start Quiz</button>
+                        <button class="end-btn">End Quiz</button>
+
+                        <div class="quiz-app">
+                            <div>
+                                <h1>Math Quiz</h1>
+                                <h2 class="score">Score: 0/5</h2>
+                            </div>
+                            <div class="quiz">
+                                <h2 class="question">Place Question here</h2>
+                                <div>
+                                    <button class="answer-button">
+                                        Answer 1
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 2
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 3
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 4
+                                    </button>
+                                </div>
+                                <button class="next-btn btn">Next</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="quiz-card" id="Movies-card">
+                        <img src="./assets/movies.jpg" alt="Movies" />
+                        <h3>Movies</h3>
+                        <button class="start-btn">Start Quiz</button>
+                        <button class="end-btn">End Quiz</button>
+                        <div class="quiz-app">
+                            <div>
+                                <h1>Movies Quiz</h1>
+                                <h2 class="score">Score: 0/5</h2>
+                            </div>
+                            <div class="quiz">
+                                <h2 class="question">Place Question here</h2>
+                                <div>
+                                    <button class="answer-button">
+                                        Answer 1
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 2
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 3
+                                    </button>
+                                    <button class="answer-button">
+                                        Answer 4
+                                    </button>
+                                </div>
+                                <button class="next-btn btn">Next</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-        </div>
-
-
-                        </article> 
-                
-                   <article class="quiz-card" id="Mathematics-card">
-                            <img src="Images/math pic.jpg" alt="Mathematics" />
-                            <h3>Mathematics</h3> 
-                            <div class="quiz-app">
-            <h1>Math Quiz</h1>
-            <div class=quiz>
-                <h2 id="question">Place Question here</h2>
-                <div id=answer-buttons>
-                    <button class="btn">Answer 1</button>
-                    <button class="btn">Answer 2</button>
-                    <button class="btn">Answer 3</button>
-                    <button class="btn">Answer 4</button>
-                    <button id="next-btn" class="btn">Next</button>
-                </div>
-            </div>
-        </div>
-
-
-                        </article>  
-                        <article class="quiz-card" id="Movies-card">
-                            <img src="Images/movies pic.jpg" alt="Science" />
-                            <h3>Movies</h3> 
-                            <div class="quiz-app">
-            <h1>Movies Quiz</h1>
-            <div class=quiz>
-                <h2 id="question">Place Question here</h2>
-                <div id=answer-buttons>
-                    <button class="btn">Answer 1</button>
-                    <button class="btn">Answer 2</button>
-                    <button class="btn">Answer 3</button>
-                    <button class="btn">Answer 4</button>
-                    <button id="next-btn" class="btn">Next</button>
-                </div>
-            </div>
-        </div>
-
-
-                        </article> 
-                
-
-
-                      
-        </div>
-
             </section>
         </main>
         <footer id="contact" class="footer">
             <p>&copy; Quiz Masters</p>
         </footer>
-        <script src="script.js"></script>
+        <script src="./script.js"></script>
     </body>
 </html>
-
-
