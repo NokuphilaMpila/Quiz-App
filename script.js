@@ -1,4 +1,4 @@
-// Quiz Data
+// quiz data for each category
 const quizData = {
     science: [
         {
@@ -144,7 +144,7 @@ const quizData = {
 };
 
 
-// This class manages the various quizzes and their state/logic
+// quiz logic and state management
 class Quiz {
     constructor(quizData) {
         this.quizData = quizData;
@@ -172,6 +172,7 @@ class Quiz {
     }
 }
 
+// UI and interaction management
 class QuizApp {
     constructor(element, category, quiz) {
         this.element = element;
@@ -185,6 +186,16 @@ class QuizApp {
         // search up in the until root to find the category card
         this.closeButton = element.closest('.quiz-card').querySelector('.end-btn');
         this.startButton = element.closest('.quiz-card').querySelector('.start-btn');
+
+        // runtime state
+        this.answered = false;
+
+        // bind handlers once so we can add/remove reliably
+        this.onNextClick = this.handleNext.bind(this);
+        this.onAnswerClick = (e) => {
+            if (this.answered) return;
+            this.handleAnswer(e.currentTarget);
+        };
     }
 
     startQuiz() {
@@ -192,24 +203,7 @@ class QuizApp {
         this.element.style.display = 'block';
         this.scoreElement.textContent = `Score: 0/${this.quiz.totalQuestions}`;
         this.showQuestion();
-        this.nextButton.style.display = 'block';
-        this.nextButton.addEventListener('click', () => this.handleNext());
-
-        // remove any previous listeners to avoid stacking
-        this.answerButtons.forEach(button => {
-            const newButton = button.cloneNode(true);
-            button.parentNode.replaceChild(newButton, button);
-        });
-
-        // re-query after replaceWith
-        this.answerButtons = this.element.querySelectorAll('.answer-button');
-        this.answerButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // only allow answering if not already answered
-                if (this.answered) return;
-                this.handleAnswer(button);
-            });
-        });
+        this.attachListeners();
     }
 
     showQuestion() {
@@ -222,7 +216,7 @@ class QuizApp {
             button.disabled = false;
             button.classList.remove('correct', 'wrong');
         });
-        this.nextButton.style.display = 'none';
+        this.nextButton.style.display = 'none'; // hide Next until an answer is picked
     }
 
     handleAnswer(button) {
@@ -278,10 +272,34 @@ class QuizApp {
     endQuiz() {
         console.log("Ending quiz");
         this.questionElement.textContent = `Quiz Over! Final Score: ${this.quiz.score}/${this.quiz.totalQuestions}`;
-        this.answerButtons.forEach(button => button.style.display = 'none');
+        // hide controls
+        this.answerButtons.forEach(button => {
+            button.disabled = true;
+            button.style.display = 'none';
+        });
         this.nextButton.style.display = 'none';
+        // remove listeners so logic is cleaned up at the end of the quiz
+        this.detachListeners();
         this.startButton.style.display = 'block';
         this.closeButton.style.display = 'block';
+    }
+
+    attachListeners() {
+        // de-dupe listeners
+        this.nextButton.removeEventListener('click', this.onNextClick);
+        this.nextButton.addEventListener('click', this.onNextClick);
+
+        this.answerButtons.forEach(btn => {
+            btn.removeEventListener('click', this.onAnswerClick);
+            btn.addEventListener('click', this.onAnswerClick);
+        });
+    }
+
+    detachListeners() {
+        this.nextButton.removeEventListener('click', this.onNextClick);
+        this.answerButtons.forEach(btn => {
+            btn.removeEventListener('click', this.onAnswerClick);
+        });
     }
 }
 
@@ -308,12 +326,14 @@ categoryButtons.forEach(element => {
     quizAppElement.quizApp = quizApp;
 
     startButton.textContent = 'Start Quiz';
+
+    endButton.addEventListener('click', () => {
+        quizApp.handleClose();
+    });
+
     startButton.addEventListener('click', () => {
         startButton.style.display = 'none';
         endButton.style.display = 'block';
-        endButton.addEventListener('click', () => {
-            quizApp.handleClose();
-        });
 
         // hide other quizzes
         document.querySelectorAll('.quiz-card').forEach(app => {
@@ -321,7 +341,6 @@ categoryButtons.forEach(element => {
         });
 
         quizApp.startQuiz();
-
     });
 });
 
