@@ -144,8 +144,12 @@ const quizData = {
 };
 
 
-// quiz logic and state management
+/*
+* State and Logic
+* Stores the quiz state and handles question progression and scoring
+*/
 class Quiz {
+    // quizData is an array of question objects
     constructor(quizData) {
         this.quizData = quizData;
         this.currentQuestionIndex = 0;
@@ -153,10 +157,12 @@ class Quiz {
         this.totalQuestions = quizData.length;
     }
 
+    // returns the current question object
     getCurrentQuestion() {
         return this.quizData[this.currentQuestionIndex];
     }
 
+    // process the answer, update score if correct
     answerQuestion(answerIndex) {
         const currentQuestion = this.getCurrentQuestion();
         if (currentQuestion.answers[answerIndex].correct) {
@@ -164,6 +170,7 @@ class Quiz {
         }
     }
 
+    // move to the next question
     nextQuestion() {
         this.currentQuestionIndex++;
         if (this.currentQuestionIndex < this.totalQuestions) {
@@ -172,8 +179,12 @@ class Quiz {
     }
 }
 
-// UI and interaction management
+/*
+* UI and Interaction
+* Manages the quiz UI, user interactions, and ties into the Quiz state
+*/
 class QuizApp {
+    // element is the root DOM element for this quiz app instance
     constructor(element, category, quiz) {
         this.element = element;
         this.category = category;
@@ -190,7 +201,6 @@ class QuizApp {
         // runtime state
         this.answered = false;
 
-        // bind handlers once so we can add/remove reliably
         this.onNextClick = this.handleNext.bind(this);
         this.onAnswerClick = (e) => {
             if (this.answered) return;
@@ -198,6 +208,7 @@ class QuizApp {
         };
     }
 
+    // begins the quiz
     startQuiz() {
         console.log(`Starting ${this.category} quiz`);
         this.element.style.display = 'block';
@@ -206,6 +217,7 @@ class QuizApp {
         this.attachListeners();
     }
 
+    // display the current question and answers
     showQuestion() {
         this.answered = false;
         console.log(`Showing question ${this.quiz.currentQuestionIndex + 1}`);
@@ -219,26 +231,34 @@ class QuizApp {
         this.nextButton.style.display = 'none'; // hide Next until an answer is picked
     }
 
+    // handle answer selection
     handleAnswer(button) {
         if (this.answered) return;
         this.answered = true;
         const answerIndex = Array.from(this.answerButtons).indexOf(button);
         const currentQuestion = this.quiz.getCurrentQuestion();
+
+        // provide feedback
         if (currentQuestion.answers[answerIndex].correct) {
             button.classList.add('correct');
         } else {
             button.classList.add('wrong');
         }
+
         this.answerButtons.forEach(btn => btn.disabled = true);
         this.nextButton.style.display = 'block';
+
         this.quiz.answerQuestion(answerIndex);
+        // update score
         this.updateScore();
     }
 
+    // update score display
     updateScore() {
         this.scoreElement.textContent = `Score: ${this.quiz.score}/${this.quiz.totalQuestions}`;
     }
 
+    // handle Next button click
     handleNext() {
         this.quiz.nextQuestion();
         if (this.quiz.currentQuestionIndex < this.quiz.totalQuestions) {
@@ -250,6 +270,7 @@ class QuizApp {
         }
     }
 
+    // handle closing the quiz
     handleClose() {
         console.log("Closing quiz");
         this.element.style.display = 'none';
@@ -269,6 +290,7 @@ class QuizApp {
         });
     }
 
+    // finalize the quiz, show final score
     endQuiz() {
         console.log("Ending quiz");
         this.questionElement.textContent = `Quiz Over! Final Score: ${this.quiz.score}/${this.quiz.totalQuestions}`;
@@ -284,6 +306,7 @@ class QuizApp {
         this.closeButton.style.display = 'block';
     }
 
+    // attach event listeners
     attachListeners() {
         // de-dupe listeners
         this.nextButton.removeEventListener('click', this.onNextClick);
@@ -295,6 +318,7 @@ class QuizApp {
         });
     }
 
+    // detach event listeners
     detachListeners() {
         this.nextButton.removeEventListener('click', this.onNextClick);
         this.answerButtons.forEach(btn => {
